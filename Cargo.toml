@@ -13,5 +13,10 @@ sha3 = "0.10"
 subtle = "2.5"
 
 [dev-dependencies]
+criterion = "0.5.1"
 hex = "0.4.3"
 regex = "1.10.2"
+
+[[bench]]
+name = "ops"
+harness = false
