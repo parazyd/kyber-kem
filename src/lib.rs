@@ -16,6 +16,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+//! Implementation of the [Kyber](https://pq-crystals.org/kyber) IND-CCA2
+//! secure key encapsulation mechanism (KEM)
+//!
+//! **Example usage:**
+//~
+//! ```rust
+//! use rand::rngs::OsRng;
+//! use kyber_kem::{kem_keypair_1024, kem_encrypt_1024, kem_decrypt_1024};
+//!
+//! fn main() {
+//!     let (secret_key, public_key) = kem_keypair_1024(&mut OsRng);
+//!     let (ciphertext, shared_secret) = kem_encrypt_1024(public_key, &mut OsRng);
+//!     let dec_shared_secret = kem_decrypt_1024(ciphertext, secret_key);
+//!     assert_eq!(shared_secret, dec_shared_secret);
+//! }
+//! ```
+
 /// Library constants
 pub mod params;
 

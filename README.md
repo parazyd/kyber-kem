@@ -1,6 +1,8 @@
 Kyber-KEM
 =========
 
+[[Documentation|Docs.rs]](https://docs.rs/kyber-kem/)
+
 Implementation of [Kyber](https://pq-crystals.org/kyber) IND-CCA2
 secure key encapsulation mechanism (KEM)
 
