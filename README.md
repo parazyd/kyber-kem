@@ -1,7 +1,8 @@
 Kyber-KEM
 =========
 
-[[Documentation|Docs.rs]](https://docs.rs/kyber-kem/)
+[![CI](https://img.shields.io/github/actions/workflow/status/parazyd/kyber-kem/ci.yml?branch=master&style=flat-square)](https://github.com/parazyd/kyber-kem/actions)
+[![Docs](https://img.shields.io/badge/rust-doc-blue)](https://docs.rs/kyber-kem)
 
 Implementation of [Kyber](https://pq-crystals.org/kyber) IND-CCA2
 secure key encapsulation mechanism (KEM)
