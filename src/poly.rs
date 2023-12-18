@@ -188,7 +188,8 @@ impl Poly {
         for i in 0..N / 8 {
             msg[i] = 0;
             for j in 0..8 {
-                let t = ((((a[8 * i + j] as u16) << 1) + ((Q / 2) as u16)) / (Q as u16)) & 1;
+                let mut t = (((a[8 * i + j]) as u32) << 1) + Q_DIV_BY_2_CEIL;
+                t = ((t * Q_POLY_TO_MSG) >> 28) & 1;
                 msg[i] |= (t << j) as u8;
             }
         }
