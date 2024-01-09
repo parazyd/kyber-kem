@@ -21,6 +21,7 @@ pub(crate) const Q: usize = 3329;
 pub(crate) const Q_INV: usize = 62209;
 pub(crate) const Q_DIV_BY_2_CEIL: u32 = 1665;
 pub(crate) const Q_POLY_TO_MSG: u32 = 80635;
+pub(crate) const Q_POLY_TO_MSG_DIV_BY_2_CEIL: u32 = 40318;
 pub(crate) const SYM_BYTES: usize = 32;
 pub(crate) const POLY_BYTES: usize = 384;
 pub(crate) const ETA_K512: usize = 3;

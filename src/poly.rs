@@ -58,8 +58,8 @@ impl Poly {
                 let mut r = [0u8; POLY_COMPRESSED_BYTES_K768]; // 128
                 for i in 0..N / 8 {
                     for j in 0..8 {
-                        t[j] = (((((a[8 * i + j] as u16) << 4) + ((Q / 2) as u16)) / Q as u16)
-                            & 15u16) as u8;
+                        t[j] = (((((a[8 * i + j] as u32) << 4) + Q_DIV_BY_2_CEIL) * Q_POLY_TO_MSG)
+                            >> 28) as u8;
                     }
 
                     r[rr] = t[0] | (t[1] << 4);
@@ -76,8 +76,9 @@ impl Poly {
                 let mut r = [0u8; POLY_COMPRESSED_BYTES_K1024]; // 160
                 for i in 0..N / 8 {
                     for j in 0..8 {
-                        t[j] = (((((a[8 * i + j] as u32) << 5) + ((Q / 2) as u32)) / Q as u32)
-                            & 31u32) as u8;
+                        t[j] = (((((a[8 * i + j] as u32) << 5) + (Q_DIV_BY_2_CEIL - 1))
+                            * Q_POLY_TO_MSG_DIV_BY_2_CEIL)
+                            >> 27) as u8;
                     }
 
                     r[rr] = (t[0]) | (t[1] << 5);
@@ -354,9 +355,11 @@ impl<const K: usize> PolyVec<K> {
                     for j in 0..N / 4 {
                         #[allow(clippy::needless_range_loop)]
                         for k in 0..4 {
-                            t[k] = (((((a[i][4 * j + k] as u32) << 10) + ((Q / 2) as u32))
-                                / Q as u32)
-                                & 0x3FF) as u16
+                            t[k] = ((((((a[i][4 * j + k] as u64) << 10)
+                                + (Q_DIV_BY_2_CEIL as u64))
+                                * 1290167)
+                                >> 32)
+                                & 0x3FF) as u16;
                         }
 
                         r[rr] = t[0] as u8;
@@ -364,7 +367,7 @@ impl<const K: usize> PolyVec<K> {
                         r[rr + 2] = ((t[1] >> 6) | (t[2] << 4)) as u8;
                         r[rr + 3] = ((t[2] >> 4) | (t[3] << 6)) as u8;
                         r[rr + 4] = (t[3] >> 2) as u8;
-                        rr += 5
+                        rr += 5;
                     }
                 }
 
@@ -377,9 +380,11 @@ impl<const K: usize> PolyVec<K> {
                     for j in 0..N / 8 {
                         #[allow(clippy::needless_range_loop)]
                         for k in 0..8 {
-                            t[k] = (((((a[i][8 * j + k] as u32) << 11) + ((Q / 2) as u32))
-                                / Q as u32)
-                                & 0x7FF) as u16
+                            t[k] = ((((((a[i][8 * j + k] as u64) << 11)
+                                + ((Q_DIV_BY_2_CEIL - 1) as u64))
+                                * 645084)
+                                >> 31)
+                                & 0x7FF) as u16;
                         }
 
                         r[rr] = t[0] as u8;
