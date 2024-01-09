@@ -1,6 +1,6 @@
 [package]
 name = "kyber-kem"
-version = "0.1.2"
+version = "0.1.3"
 description = "Kyber IND-CCA2 KEM in Rust"
 authors = ["parazyd <parazyd@dyne.org>"]
 repository = "https://github.com/parazyd/kyber-kem"
