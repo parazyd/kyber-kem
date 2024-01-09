@@ -118,12 +118,8 @@ pub(crate) fn ntt_inv(r: Poly) -> Poly {
 /// Performs the multiplication of polynomials in `Zq[X]/(X^2-zeta)`. Used for
 /// multiplication of elements in `Rq` in the number-theoretic transform domain.
 pub(crate) fn base_mul(a0: i16, a1: i16, b0: i16, b1: i16, zeta: i16) -> [i16; 2] {
-    let mut r = [0; 2];
-
-    r[0] = ntt_fq_mul(a1, b1);
-    r[0] = ntt_fq_mul(r[0], zeta);
-    r[0] += ntt_fq_mul(a0, b0);
-    r[1] = ntt_fq_mul(a0, b1);
-    r[1] += ntt_fq_mul(a1, b0);
-    r
+    [
+        ntt_fq_mul(ntt_fq_mul(a1, b1), zeta) + ntt_fq_mul(a0, b0),
+        ntt_fq_mul(a0, b1) + ntt_fq_mul(a1, b0),
+    ]
 }

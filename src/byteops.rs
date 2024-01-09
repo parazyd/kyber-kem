@@ -77,11 +77,7 @@ pub(crate) fn cbd<const K: usize>(buf: &[u8]) -> Poly {
 /// Computes a Montgomery reduction; give a 32-bit integer `a`,
 /// returns `a * R^-1 mod Q` where `R=2^16`.
 pub(crate) fn montgomery_reduce(a: i32) -> i16 {
-    let u = (a as i64 * (Q_INV as i64)) as i16;
-    let mut t = u as i32 * Q as i32;
-    t = a - t;
-    t >>= 16;
-    t as i16
+    ((a - (((a * (Q_INV as i32)) as i16) as i32) * (Q as i32)) >> 16) as i16
 }
 
 /// Computes a Barrett reduction; given a 16-bit integer `a`,

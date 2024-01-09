@@ -147,15 +147,9 @@ fn gen_matrix<const K: usize>(seed: &[u8], transposed: bool) -> [PolyVec<K>; K] 
             xof.reset();
 
             if transposed {
-                let mut hbuf = vec![];
-                hbuf.extend_from_slice(seed);
-                hbuf.extend_from_slice(&[i as u8, j as u8]);
-                xof.update(&hbuf);
+                xof.update(&[seed, &[i as u8, j as u8]].concat());
             } else {
-                let mut hbuf = vec![];
-                hbuf.extend_from_slice(seed);
-                hbuf.extend_from_slice(&[j as u8, i as u8]);
-                xof.update(&hbuf);
+                xof.update(&[seed, &[j as u8, i as u8]].concat());
             }
 
             let mut reader = xof.clone().finalize_xof();
